@@ -27,6 +27,9 @@ class _NewMessageState extends State<NewMessage> {
       return;
     }
 
+    FocusScope.of(context).unfocus();
+    _messageController.clear();
+
     final user = FirebaseAuth.instance.currentUser!;
 
     final userData = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
@@ -38,8 +41,6 @@ class _NewMessageState extends State<NewMessage> {
       'username': userData.data()!['username'],
       'userImage': userData.data()!['image_url'],
     });
-
-    _messageController.clear();
   }
 
   @override
